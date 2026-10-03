@@ -1,32 +1,37 @@
 # Sentiment Analysis Web Application
 
-A web-based Sentiment Analysis application that uses Natural Language Processing (NLP) and Machine Learning to classify text as **Positive** or **Negative**.
+A Flask-based web application that uses Natural Language Processing (NLP) and Machine Learning to classify English text as **Positive** or **Negative**.
 
 ## Project Overview
 
-This project analyzes the sentiment expressed in a given piece of English text. The application preprocesses the input using NLP techniques, converts the cleaned text into numerical TF-IDF features, and uses a trained Machine Learning classification model to predict the sentiment.
+This project demonstrates an end-to-end sentiment analysis workflow:
 
-The application provides a simple web interface built with HTML and CSS and is powered by a Python Flask backend.
+1. User enters English text through the web interface.
+2. The text is cleaned using NLP preprocessing techniques.
+3. Stopwords are removed and words are stemmed using Porter Stemmer.
+4. The processed text is converted into numerical features using TF-IDF.
+5. A pre-trained Machine Learning model predicts the sentiment.
+6. The result is displayed as **Positive** or **Negative**.
+
+The application is built with **Python Flask** and provides a simple responsive web interface.
 
 ## Features
 
 - Positive and Negative sentiment classification
-- Text preprocessing using NLP techniques
-- Stopword removal
+- NLP-based text preprocessing
 - Special-character removal
-- Stemming using Porter Stemmer
-- TF-IDF based text feature extraction
-- Machine Learning based prediction
-- Simple and responsive web interface
-- Real-time sentiment prediction
-- Example inputs for quick testing
+- Stopword removal
+- Porter stemming
+- TF-IDF feature extraction
+- Pre-trained Machine Learning model
+- Simple responsive web interface
+- Real-time prediction through the Flask application
 
 ## Technologies Used
 
 ### Frontend
 - HTML5
 - CSS3
-- JavaScript
 
 ### Backend
 - Python
@@ -45,6 +50,7 @@ The application provides a simple web interface built with HTML and CSS and is p
 Sentiment-Analysis-Flask/
 │
 ├── Data/
+│   └── Train.csv
 │
 ├── model/
 │   ├── sentiment_model.pkl
@@ -62,4 +68,5 @@ Sentiment-Analysis-Flask/
 ├── nlp_analyse_des_sentiments.py
 ├── NLP_Analyse_des_sentiments.ipynb
 ├── requirements.txt
+├── .gitignore
 └── README.md
