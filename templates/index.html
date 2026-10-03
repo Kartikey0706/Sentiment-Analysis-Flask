@@ -3,22 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentiment Analysis App</title>
-    <!-- Link to the CSS file in the static folder -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Sentiment Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    <div class="container">
-        <h1>Sentiment Analysis</h1>
-        <form method="POST" action="/predict">
-            <textarea name="text" rows="4" cols="50" placeholder="Enter text for sentiment analysis..."></textarea>
-            <br><br>
-            <input type="submit" value="Analyze">
-        </form>
-        
-        {% if prediction %}
-        <h2>Predicted Sentiment: {{ prediction }}</h2>
-        {% endif %}
-    </div>
+
+    <main class="page">
+
+        <section class="hero">
+            <div class="badge">NLP • MACHINE LEARNING</div>
+
+            <h1>Sentiment <span>Analyzer</span></h1>
+
+            <p class="subtitle">
+                Analyze the emotional tone of your text using
+                Natural Language Processing and Machine Learning.
+            </p>
+        </section>
+
+
+        <section class="analyzer-card">
+
+            <form method="POST" action="/predict" id="sentimentForm">
+
+                <div class="label-row">
+                    <label for="text">Enter your text</label>
+                    <span id="counter">0 / 500</span>
+                </div>
+
+                <textarea
+                    id="text"
+                    name="text"
+                    maxlength="500"
+                    placeholder="Type a review, feedback, comment, or any sentence..."
+                    required></textarea>
+
+
+                <div class="examples">
+                    <span>Try an example:</span>
+
+                    <button type="button"
+                            onclick="useExample('I absolutely love this product. It is amazing!')">
+                        Positive
+                    </button>
+
+                    <button type="button"
+                            onclick="useExample('This was a terrible experience. I am very disappointed.')">
+                        Negative
+                    </button>
+                </div>
+
+
+                <button type="submit" class="analyze-btn" id="analyzeBtn">
+                    <span>Analyze Sentiment</span>
+                    <span class="arrow">→</span>
+                </button>
+
+            </form>
+
+
+            {% if prediction %}
+
+            <div class="result
+                {% if prediction == 'Positive' %}
+                    positive
+                {% else %}
+                    negative
+                {% endif %}">
+
+                <div class="result-icon">
+                    {% if prediction == 'Positive' %}
+                        😊
+                    {% else %}
+                        😞
+                    {% endif %}
+                </div>
+
+                <div>
+                    <div class="result-label">Predicted Sentiment</div>
+                    <div class="result-value">{{ prediction }}</div>
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <section class="info-grid">
+
+            <div class="info-card">
+                <div class="info-icon">📝</div>
+                <h3>Text Processing</h3>
+                <p>
+                    Input text is cleaned and processed using
+                    NLP techniques before prediction.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">⚙️</div>
+                <h3>Machine Learning</h3>
+                <p>
+                    TF-IDF features and a trained classification
+                    model are used for sentiment prediction.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">📊</div>
+                <h3>Prediction</h3>
+                <p>
+                    The system classifies text as Positive
+                    or Negative sentiment.
+                </p>
+            </div>
+
+        </section>
+
+
+        <footer>
+            Sentiment Analysis • NLP & Machine Learning Project
+        </footer>
+
+    </main>
+
+
+    <script>
+        const textarea = document.getElementById("text");
+        const counter = document.getElementById("counter");
+        const form = document.getElementById("sentimentForm");
+        const analyzeBtn = document.getElementById("analyzeBtn");
+
+        function updateCounter() {
+            counter.textContent = textarea.value.length + " / 500";
+        }
+
+        function useExample(text) {
+            textarea.value = text;
+            updateCounter();
+            textarea.focus();
+        }
+
+        textarea.addEventListener("input", updateCounter);
+
+        form.addEventListener("submit", function () {
+            analyzeBtn.innerHTML =
+                '<span>Analyzing...</span><span class="loader"></span>';
+
+            analyzeBtn.disabled = true;
+        });
+    </script>
+
 </body>
 </html>
